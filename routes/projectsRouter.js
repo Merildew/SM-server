@@ -1,9 +1,9 @@
 const express = require("express");
-const { validateToken } = require("../JWT");
+const TokenService = require("../jwtService");
 const router = express.Router();
 const PROJECTS = require("../models/Projects");
 
-router.get("/projects", validateToken, async (req, res) => {
+router.get("/projects", TokenService.validateToken, async (req, res) => {
   const result = await getProjects(req.query.value);
   res.json(result);
 });

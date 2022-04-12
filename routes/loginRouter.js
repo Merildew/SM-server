@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const Users = require("../models/Users");
-const { generateAccessToken, generateRefreshToken } = require("../JWT");
+const TokenService = require("../jwtService");
 
 router.post("/login", async (req, res) => {
   const { login, pass } = req.body;
@@ -20,8 +20,8 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({ error: "Wrong username and password combination" });
     }
-    const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
+    const accessToken = TokenService.generateAccessToken(user);
+    const refreshToken = TokenService.generateRefreshToken(user);
     const response = {
       isLogged: true,
       accessToken,
