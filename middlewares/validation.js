@@ -61,7 +61,6 @@ const validation = async (req, res, next) => {
     };
   }
 
-  console.log(Object.keys(errors).length);
   if (Object.keys(errors).length > 1) {
     return res.status(400).json({ errors });
   }
