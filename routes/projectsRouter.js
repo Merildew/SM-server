@@ -1,28 +1,7 @@
 const express = require("express");
-const TokenService = require("../jwtService");
 const router = express.Router();
-const PROJECTS = require("../models/Projects");
+const ProjectController = require("../contoller/projectController");
 
-router.get("/projects", TokenService.validateToken, async (req, res) => {
-  const result = await getProjects(req.query.value);
-  res.json(result);
-});
-
-async function getProjects(value) {
-  const query = await PROJECTS.findAll({
-    attributes: ["src", "title", "description"],
-  });
-  const projectsArr = query.map((project) => {
-    return project.dataValues;
-  });
-  if (value === undefined) return projectsArr;
-  const result = projectsArr.filter((item) => {
-    return (
-      item.title.toLowerCase().includes(value.toLowerCase()) ||
-      item.description.toLowerCase().includes(value.toLowerCase())
-    );
-  });
-  return result;
-}
+router.get("/projects", ProjectController.getProjects);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const express = require("express");
-const TokenService = require("../jwtService");
+const AuthController = require("../contoller/authController");
 const router = express.Router();
 
-router.post("/token", TokenService.validateRefreshToken);
+router.post("/token", AuthController.refreshToken);
 
 module.exports = router;
