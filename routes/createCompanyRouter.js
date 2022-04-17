@@ -15,9 +15,9 @@ router.post("/companies", (req, res) => {
   res.send(companies);
 });
 
-router.put("/companies", (req, res) => {
+router.patch("/companies", (req, res) => {
   const company = req.body;
-  companies[company.id - 1] = company;
+  companies[company.id - 1] = { ...companies[company.id - 1], ...company };
   res.send(companies);
 });
 
